@@ -1,0 +1,128 @@
+﻿@page "/employees/list/{currentPage:int?}"
+@inject IDbContextFactory<EmployeeManagerDbContext> ContextFactory
+@inject NavigationManager NavigationManager
+@inject StateContainer StateContainer
+@inject IJSRuntime JS
+
+<PageTitle>Employees</PageTitle>
+
+<h1>Employees</h1>
+
+@if(Employees is null)
+{
+    <div>Loading...</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Is Developer</th>
+                <th>Department</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Employees)
+            {
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.IsDeveloper</td>
+                    <td>@item.Department?.Name</td>
+                    <td class="btn-group-sm">
+                        <a href="/employees/edit/@item.Id"
+                        class="btn btn-outline-primary">
+                         Edit</a>
+                        <button class="btn btn-outline-danger" @onclick="() => HandleDelete(item)">
+                             Delete
+                         </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <ul class="pagination mt-3 justify-content-end" >
+        <li class="page-item @(CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" href="/employees/list/@(CurrentPage - 1) ">Previous</a>
+        </li>
+        @for (int i = 1; i <= TotalPages; i++)
+        {
+            <li class="page-item @(CurrentPage == i ? "active" : "")">
+                <a class="page-link" href="/employees/list/@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(CurrentPage == TotalPages ? "disabled" : "")">
+            <a class="page-link" href="/employees/list/@(CurrentPage + 1) ">Next</a>
+        </li>
+    </ul>
+}
+
+@code   {
+    [Parameter]
+    public int? CurrentPage { get; set; }
+
+    private Employee[]? Employees { get; set; }
+
+    private const int ItemsPerPage = 2;
+    private int TotalPages { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadData();
+    }
+    private async Task LoadData()
+    {
+        
+        if (CurrentPage is null or < 1)
+        {
+            NavigationManager.NavigateTo("/employees/list/1");
+            return;
+            //CurrentPage = 1;
+        }
+        using var context = ContextFactory.CreateDbContext();
+
+        var employeeCount = await context.Employees.CountAsync();
+        TotalPages = employeeCount == 0 ? 1 : (int)Math.Ceiling(employeeCount / (double)ItemsPerPage);
+
+        if (CurrentPage > TotalPages)
+        {
+            NavigationManager.NavigateTo($"/employees/list/{TotalPages}");
+            return;
+        }
+
+        StateContainer.EmployeeOverviewPage = CurrentPage.Value;
+
+        var itemsToSkip = (CurrentPage.Value - 1) * ItemsPerPage;
+
+        Employees = await context.Employees
+        .Include(emp => emp.Department)
+        .OrderBy(emp => emp.FirstName)
+        .Skip(itemsToSkip)
+        .Take(ItemsPerPage)
+        .ToArrayAsync();
+    }
+
+    private async Task HandleDelete(Employee employee)
+    {
+        var isOk = await JS.InvokeAsync<bool>("confirm", $"Do you really want to delete this employee {employee.FirstName} {employee.LastName}?");
+        if (!isOk)
+        {
+            return;
+        }
+        try
+        {
+            using var context = ContextFactory.CreateDbContext();
+            context.Employees.Remove(employee);
+            await context.SaveChangesAsync();            
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            //If we get this exception, the employee was feleted or modified.
+            //As we reload the data below, let's ignore this exception.
+        }
+        await LoadData();
+    }
+}

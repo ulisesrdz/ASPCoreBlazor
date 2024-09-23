@@ -1,0 +1,71 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WiredBrainCoffe
+build_property.RootNamespace = WiredBrainCoffe
+build_property.ProjectDir = C:\Users\yeuv55r\source\repos\ASPCoreBlazor\WiredBrainCoffe\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\yeuv55r\source\repos\ASPCoreBlazor\WiredBrainCoffe
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/AddEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/EditEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdEVtcGxveWVlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/EmployeeForm.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/EmployeeOverview.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVPdmVydmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-zv9m5x329p
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-izaz5tfpx1
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yeuv55r/source/repos/ASPCoreBlazor/WiredBrainCoffe/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

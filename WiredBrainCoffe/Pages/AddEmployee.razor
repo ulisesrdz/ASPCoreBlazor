@@ -1,0 +1,100 @@
+﻿@page "/employees/add"
+@inject IDbContextFactory<EmployeeManagerDbContext> ContextFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Add Employee</PageTitle>
+<h3>AddEmployee</h3>
+
+<EmployeeForm Employee="@Employee" 
+    Departments="@Departments"
+    IsBusy="@IsBusy"
+    OnSubmit="@HandleSubmit"/>
+
+@if (SuccessMessage is not null)
+{
+    <div class="alert alert-success mt-3" role="alert">
+        @SuccessMessage
+    </div>
+}
+@if (ErrorMessage is not null)
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @ErrorMessage
+    </div>
+}
+
+@code {
+    private Employee? Employee { get; set; }
+    private Department[]? Departments { get; set; }
+    public bool IsBusy { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = ContextFactory.CreateDbContext();
+        Departments = await context.Departments
+            .OrderBy(d => d.Name)
+            .ToArrayAsync();
+
+        Employee = new()
+            {
+                DepartmentId = Departments.FirstOrDefault()?.Id
+            };
+    }
+
+    private string? SuccessMessage { get; set; }
+    private string? ErrorMessage { get; set; }
+
+    private async Task HandleSubmit(bool isValid)
+    {
+        if (isValid)
+        {
+            await HandleValidationSubmit();
+        }
+        else
+        {
+            HandleInvalidationSubmit();
+        }
+    }
+
+    private async Task HandleValidationSubmit()
+    {
+        if (IsBusy)
+        {
+            return;
+        }
+        IsBusy = true;
+        try
+        {
+            if (Employee is not null)
+            {
+                using var context = ContextFactory.CreateDbContext();
+                context.Employees.Add(Employee);
+                await context.SaveChangesAsync();
+
+                SuccessMessage = $"Employee {Employee.FirstName} {Employee.LastName} was added";
+                ErrorMessage = null;
+                Employee = new()
+                    {
+                        DepartmentId = Employee.DepartmentId
+                    };
+
+                //NavigationManager.NavigateTo("/employees/list");
+            }
+        }
+        catch (Exception ex)
+        {
+            SuccessMessage = null;
+            ErrorMessage = $"An error occurred while adding the employee: {ex.Message}";            
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+    }
+
+    private void HandleInvalidationSubmit()
+    {
+        SuccessMessage = null;
+        ErrorMessage = null;
+    }
+}
